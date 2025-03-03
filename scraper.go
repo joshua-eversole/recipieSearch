@@ -126,10 +126,20 @@ func printScrapedData(recipe Recipe) {
 
 func main() {
 	// Scrape Allrecipes
-	url := "https://www.allrecipes.com/recipe/223042/chicken-parmesan/"
-	recipe, err := scrapeAllrecipes(url)
-	if err != nil {
-		log.Fatal("Error scraping Allrecipes:", err)
+
+	//url := "https://www.allrecipes.com/recipe/223042/chicken-parmesan/"
+	fmt.Printf("Welcome! Please insert the URL of the recipe you want to scrape: ")
+	var url string
+	fmt.Scanln(&url)
+	website := strings.Split(url, ".")[1]
+	switch website {
+	case "allrecipies":
+		fmt.Println("This is an Allrecipies URL")
+		recipe, err := scrapeAllrecipes(url)
+		if err != nil {
+			log.Fatal("Error scraping Allrecipes:", err)
+		}
+		printScrapedData(recipe)
 	}
 
 	//Trying
@@ -139,6 +149,5 @@ func main() {
 	})
 
 	// Print the scraped data
-	printScrapedData(recipe)
 	// You can add more scraping functions for other sites here
 }
